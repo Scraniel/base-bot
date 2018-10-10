@@ -1,6 +1,6 @@
 package com.github.scraniel.basebot.commands;
 
-import com.github.scraniel.milliondollarsbutbot.BotUtils;
+import com.github.scraniel.basebot.BotUtils;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.guild.channel.ChannelEvent;
 import sx.blah.discord.handle.obj.IChannel;
@@ -10,7 +10,7 @@ import sx.blah.discord.handle.obj.IChannel;
  */
 public abstract class AbstractMessageCommand extends AbstractCommand {
 
-    IChannel currentChannel;
+    protected IChannel currentChannel;
 
     public AbstractMessageCommand()
     {
@@ -22,7 +22,7 @@ public abstract class AbstractMessageCommand extends AbstractCommand {
     }
 
     @Override
-    boolean setUp()
+    protected boolean setUp()
     {
         // We only handle ChannelEvents here (we need to be able to get which channel to post to if none provided)
         if(!(currentEvent instanceof ChannelEvent)) {
@@ -34,12 +34,12 @@ public abstract class AbstractMessageCommand extends AbstractCommand {
     }
 
     @Override
-    void doCommand() {
+    protected void doCommand() {
         BotUtils.sendMessage(currentChannel, getMessage());
     }
 
     @Override
-    void cleanUp() {
+    protected void cleanUp() {
         currentChannel = null;
     }
 
