@@ -55,6 +55,11 @@ public class EventHandler {
         registerCommand(reactionCommandMap, emojiName, command);
     }
 
+    public IDiscordClient getDiscordContext()
+    {
+        return discordContext;
+    }
+
     private void registerCommand(Map<String, ICommand> map, String key, ICommand value)
     {
         value.setDiscordContext(discordContext);
@@ -74,7 +79,7 @@ public class EventHandler {
             String command = splitContent[0];
 
             if(messageCommandMap.containsKey(command)){
-                messageCommandMap.get(command).run(event, args.length == 0 ? args : null);
+                messageCommandMap.get(command).run(event, args);
             }
         }
     }
