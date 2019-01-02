@@ -1,21 +1,15 @@
 package com.github.scraniel.basebot.commands;
 
-import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.Event;
 
 public abstract class AbstractCommand implements ICommand{
 
-    protected IDiscordClient discordContext;
     protected Event currentEvent;
     protected String[] currentArguments;
 
     public AbstractCommand()
     {
-        this(null);
-    }
-
-    public AbstractCommand (IDiscordClient context) {
-        discordContext = context;
+        super();
     }
 
     @Override
@@ -34,11 +28,6 @@ public abstract class AbstractCommand implements ICommand{
         currentArguments = null;
     }
 
-    @Override
-    public void setDiscordContext(IDiscordClient context)
-    {
-        discordContext = context;
-    }
 
     abstract boolean setUp();
     abstract void doCommand();

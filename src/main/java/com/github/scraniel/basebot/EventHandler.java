@@ -17,7 +17,6 @@ public class EventHandler {
 
     private Map<String, ICommand> messageCommandMap = null;
     private Map<String, ICommand> reactionCommandMap = null;
-    private IDiscordClient discordContext = null;
     public static final String BOT_PREFIX = "/";
 
     public EventHandler()
@@ -26,17 +25,9 @@ public class EventHandler {
         reactionCommandMap = new HashMap<>();
     }
 
-    public EventHandler(IDiscordClient context)
-    {
-        this();
-
-        // Store discord client context
-        discordContext = context;
-    }
-
     public void init(String token)
     {
-        discordContext = BotUtils.getBuiltDiscordClient(token);
+        IDiscordClient discordContext = BotUtils.getBuiltDiscordClient(token);
 
         // Register a listener via the EventSubscriber annotation which allows for organisation and delegation of events
         discordContext.getDispatcher().registerListener(this);
@@ -45,19 +36,18 @@ public class EventHandler {
         discordContext.login();
     }
 
-    public void registerMessageCommand(String commandName, ICommand command)
+    public void registerMessageEvent(String commandName, ICommand command)
     {
-        registerCommand(messageCommandMap, BOT_PREFIX + commandName, command);
+        registerEvent(messageCommandMap, BOT_PREFIX + commandName, command);
     }
 
-    public void registerReactionCommand(String emojiName, ICommand command)
+    public void registerReactionEvent(String emojiName, ICommand command)
     {
-        registerCommand(reactionCommandMap, emojiName, command);
+        registerEvent(reactionCommandMap, emojiName, command);
     }
 
-    private void registerCommand(Map<String, ICommand> map, String key, ICommand value)
+    private void registerEvent(Map<String, ICommand> map, String key, ICommand value)
     {
-        value.setDiscordContext(discordContext);
         map.put(key, value);
     }
 

@@ -1,7 +1,6 @@
 package com.github.scraniel.basebot.commands;
 
 import com.github.scraniel.basebot.BotUtils;
-import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.events.guild.channel.ChannelEvent;
 import sx.blah.discord.handle.obj.IChannel;
 
@@ -15,10 +14,6 @@ public abstract class AbstractMessageCommand extends AbstractCommand {
     public AbstractMessageCommand()
     {
         super();
-    }
-    public AbstractMessageCommand(IDiscordClient context)
-    {
-        super(context);
     }
 
     @Override
